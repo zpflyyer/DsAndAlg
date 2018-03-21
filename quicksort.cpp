@@ -1,45 +1,49 @@
 #include <iostream>
 using namespace std;
-void printArr(int a[], int from, int to){
+void printArr(int array[], int from, int to){
     for (int i = from;i <= to ;i++) {
-        cout << a[i] << "\t";
+        cout << array[i] << "\t";
     }
     cout << endl;
 }
-int partition(int a[], int low, int high){
-    int pivot = a[high];
+int partition(int array[], int low, int high){
+    int pivot = array[high];
     int i = low-1;
     for (int j = low; j < high; j++) {
-        if(a[j] < pivot){
+        if(array[j] < pivot){
             i++;
             if(i<j){
-                a[i] = a[i] + a[j];
-                a[j] = a[i] - a[j];
-                a[i] = a[i] - a[j];
+                array[i] = array[i] + array[j];
+                array[j] = array[i] - array[j];
+                array[i] = array[i] - array[j];
             }
         }
     }
-    a[high] = a[i+1];
-    a[i+1] = pivot;
+    array[high] = array[i+1];
+    array[i+1] = pivot;
     return i+1;
 }
-void quicksort(int a[], int low, int high){
+void quicksort(int array[], int low, int high){
     if(low < high){
-        int pi = partition(a, low, high);
-        quicksort(a, low, pi-1);
-        quicksort(a, pi+1, high);
+        int pi = partition(array, low, high);
+        quicksort(array, low, pi-1);
+        quicksort(array, pi+1, high);
     }
 }
 int main(){
-    cout << "number of elements: ";
     int length;
+    cout << "enter how many number to be sorted: " << endl;
     cin >> length;
-    int* a = new int[length];
-    cout << "enter " << length << " numbers: ";
-    quicksort(a, 0, length-1);
+    
+    int* array = new int[length];
+    cout << "enter " << length << " numbers: " << endl;
     for (int i = 0; i < length; i++) {
-        cin >> a[i];
+        cin >> array[i];
     }
-    printArr(a,0,length-1);
+    
+    quicksort(array, 0, length-1);
+    cout << "after sorted: " << endl;
+    printArr(array,0,length-1);
+    delete []array;
     return 0;
 }
