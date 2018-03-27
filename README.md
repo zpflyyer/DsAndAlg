@@ -25,3 +25,4 @@ https://en.wikipedia.org/wiki/Big_O_notation#Family_of_Bachmann.E2.80.93Landau_n
 | Plugin | Key Point | Complexity Analysis | Best  | Worst  | Average |
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | quick sort | Quick sort is a up-to-down solution, it's the partition what matters most in this algo, we need use an integer to track number of elements which is bigger than the pivot and place the new found element to the proper position | T(n) = T(k) + T(n-k) + a*n | happens when the pivot always partition the array into two balance part, that is, T(n) = 2(T/2) + a*n = n*T(1) + a*n*㏒₂n| happens when the pivot is always the largest element in an increase order sort.  k=1, T(n) = nT(1) + a*(n+2)*(n-1)/2, T(n)=O(n²) | 
+| merge sort | an easy sort algo with no critical operation | Always nLog₂n | nLog₂n | nLog₂n | nLog₂n |
