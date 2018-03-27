@@ -14,7 +14,8 @@ void printSingleLinkedList(node* list){
         cout << endl;
     }  
 }
-node* reverseList(node* list){
+void reverseList(node** singleLinkedList){
+    node* list = *singleLinkedList;
     node* q = NULL;
     if(list != NULL && list->value >0){
         node* p = list->next;//first node;
@@ -27,8 +28,7 @@ node* reverseList(node* list){
             p = t;
         }
     }
-    list->next = q;
-    return list;
+    (*singleLinkedList)-> next = q;
 }
 int main() {
 	node* singleLinkedList = new node;
@@ -40,7 +40,7 @@ int main() {
 	    cin >> p->value;
 	}
 	printSingleLinkedList(singleLinkedList);
-	singleLinkedList = reverseList(singleLinkedList);
+	reverseList(&singleLinkedList);
 	printSingleLinkedList(singleLinkedList);
 	return 0;
 }
