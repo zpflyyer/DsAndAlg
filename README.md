@@ -36,7 +36,16 @@ https://en.wikipedia.org/wiki/Big_O_notation#Family_of_Bachmann.E2.80.93Landau_n
 		+ dynamic size.
 	+ disadvantage
 		+ worse efficienet access (O(n));
-		+ without cache locality;
+		+ without **cache locality**;
 		+ single node has a large space because of the pointer, but since LL size is dynamic, which will get one more bonus.
 	+ storage area
 		+ generally, array is allocated memory on Data section (global array) or Stack section (local array), sinlgeLinkedList is allocated dynamically (during run-time).
+		+ in fact, a **dynamic array** can be created on heap by using pointer, which take advatanges of both random access and  dynamic size like this: 
+        ```
+        int * dynArr = (int *)malloc(sizeof(int)*arrSize);
+        ```
+        And a linkedList can be created on stack/data area in embedded systems, since malloc()  is costly in terms of time complexity.
+        Meanwhile,  we can simmulate linkedList on an array but it is obviously different from a real linkedList.
+2. Operation on SingleLinkedList:
+    + [look at how to swap nodes: A great idea handle all situations.](https://github.com/zpflyyer/DsAndAlg/commit/f28e3ff2140648ef8ad7f08e964910dc53cece28)
+        
