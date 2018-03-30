@@ -118,6 +118,34 @@ int  getLength(node* head){
    }
 }
 
+void swap(node** a, node** b){
+    node* temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void swapFirstOccur(node** first_ref, int key1, int key2){
+    node** a=NULL;
+    node** b=NULL;
+    while((*first_ref) != NULL){
+        if((*first_ref)->value == key1 && a == NULL){
+            a = first_ref;
+        }
+        if((*first_ref)->value == key2 && b == NULL){
+            b = first_ref;
+        }
+        if(a != NULL && b != NULL){
+            break;
+        }
+        first_ref = &((*first_ref)->next);
+    }
+    if(a != NULL && b != NULL){
+    	//what a great idea, which can handle all situations
+        swap(a, b);
+        swap(&((*a)->next),&((*b)->next));
+    }
+}
+
 int main() {
 	node* singleLinkedList = new node;
 	node* p = singleLinkedList;
