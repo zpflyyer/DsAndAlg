@@ -146,27 +146,113 @@ void swapFirstOccur(node** first_ref, int key1, int key2){
     }
 }
 
+//will not break list1 or list2 down
+node* sortedMerge(node* list1, node* list2){
+    node* resultantList = new node;
+    node* p = resultantList;
+    p->value = list1->value + list2->value;
+    list1 = list1->next;
+    list2 = list2->next;
+    while(1){
+        if(list1->value <= list2->value){
+            p->next = new node;
+            p->next->value = list1->value;
+            list1 = list1->next;
+            p=p->next;
+        } else {
+            p->next = new node;
+            p->next->value = list2->value;
+            list2 = list2->next;
+            p=p->next;
+        }
+        if(list1 == NULL){
+            p->next = list2;
+            break;
+        }
+        if(list2 == NULL){
+            p->next = list1;
+            break;
+        }
+    }
+    return resultantList;
+}
+// will break list into to pieces
+void halve(node* list, node** leftHalf, node** rightHalf){
+    node* slow = list, *fast = list;
+    int leftLength = 0;
+    while(fast->next != NULL){
+        slow = slow->next;
+        fast = fast->next;
+        leftLength ++;
+        if(fast->next != NULL){
+            fast = fast->next;
+        }
+    }
+    *leftHalf = new node, *rightHalf = new node;
+    //left part
+    (*leftHalf)->value = leftLength;
+    (*leftHalf)->next = list->next;
+    //right part
+    (*rightHalf)->value = list->value - leftLength;
+    (*rightHalf)->next = slow->next;
+    slow->next = NULL;
+}
+
+void mergeSort(node** list){
+    if((*list)->value <= 1){
+        return;
+    }
+    node* a, *b;
+    halve(*list, &a, &b);
+    mergeSort(&a);
+    mergeSort(&b);
+    *list = sortedMerge(a, b);
+    printSingleLinkedList(*list);
+}
+
 int main() {
-	node* singleLinkedList = new node;
-	node* p = singleLinkedList;
-	cin >> singleLinkedList->value;
-	for (int i = 0; i < singleLinkedList->value; i++) {
+	node *singleLinkedList1 = new node, *singleLinkedList2 = new node;
+	node* p = singleLinkedList1, *q=singleLinkedList2;
+	cin >> singleLinkedList1->value;
+	for (int i = 0; i < singleLinkedList1->value; i++) {
 	    p->next = new node;
 	    p = p->next;
 	    cin >> p->value;
 	}
-	printSingleLinkedList(singleLinkedList);
-	reverseList(&singleLinkedList);
-	printSingleLinkedList(singleLinkedList);
-	append(&singleLinkedList, 6);
-	printSingleLinkedList(singleLinkedList);
-    insertHead(&singleLinkedList, 7);
-    printSingleLinkedList(singleLinkedList);
-    insertHead(&singleLinkedList, 1);
-    printSingleLinkedList(singleLinkedList);
-    append(&singleLinkedList, 4);
-    printSingleLinkedList(singleLinkedList);
-    insertAfter(singleLinkedList, singleLinkedList->next, 8);
-    printSingleLinkedList(singleLinkedList);
+	cin >> singleLinkedList2->value;
+	for (int i = 0; i < singleLinkedList2->value; i++) {
+	    q->next = new node;
+	    q = q->next;
+	    cin >> q->value;
+	}
+// 	node* mergedList = sortedMerge(singleLinkedList1, singleLinkedList2);
+// 	printSingleLinkedList(mergedList);
+	
+// 	node* a, *b;
+// 	halve(mergedList, &a, &b);
+// 	printSingleLinkedList(a);
+// 	printSingleLinkedList(b);
+	
+	mergeSort(&singleLinkedList1);
+	printSingleLinkedList(singleLinkedList1);
+	return 0;
+}
+
+int main() {
+	node *singleLinkedList1 = new node, *singleLinkedList2 = new node;
+	node* p = singleLinkedList1, *q=singleLinkedList2;
+	cin >> singleLinkedList1->value;
+	for (int i = 0; i < singleLinkedList1->value; i++) {
+	    p->next = new node;
+	    p = p->next;
+	    cin >> p->value;
+	}
+	cin >> singleLinkedList2->value;
+	for (int i = 0; i < singleLinkedList2->value; i++) {
+	    q->next = new node;
+	    q = q->next;
+	    cin >> q->value;
+	}
+	printSingleLinkedList(sortedMerge(singleLinkedList1, singleLinkedList2));
 	return 0;
 }
