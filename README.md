@@ -48,4 +48,5 @@ https://en.wikipedia.org/wiki/Big_O_notation#Family_of_Bachmann.E2.80.93Landau_n
         Meanwhile,  we can simmulate linkedList on an array but it is obviously different from a real linkedList.
 2. Operation on SingleLinkedList:
     + [look at how to swap nodes: A great idea handle all situations.](https://github.com/zpflyyer/DsAndAlg/commit/f28e3ff2140648ef8ad7f08e964910dc53cece28)
+    + The slow random-access performance of linked list makes some other algorithms(such as quicksort) perform poorly, some others completely impossible(such as heapsort), and some others still feasible([mergesort](https://github.com/zpflyyer/DsAndAlg/commit/4da2fae333ebdbb04c246438a4e7de28638a0ec1)).
         
