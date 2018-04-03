@@ -154,6 +154,14 @@ node* sortedMerge(node* list1, node* list2){
     list1 = list1->next;
     list2 = list2->next;
     while(1){
+    	if(list1 == NULL){
+            p->next = list2;
+            break;
+        }
+        if(list2 == NULL){
+            p->next = list1;
+            break;
+        }
         if(list1->value <= list2->value){
             p->next = new node;
             p->next->value = list1->value;
@@ -164,14 +172,6 @@ node* sortedMerge(node* list1, node* list2){
             p->next->value = list2->value;
             list2 = list2->next;
             p=p->next;
-        }
-        if(list1 == NULL){
-            p->next = list2;
-            break;
-        }
-        if(list2 == NULL){
-            p->next = list1;
-            break;
         }
     }
     return resultantList;
