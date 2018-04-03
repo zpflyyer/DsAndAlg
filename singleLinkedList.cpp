@@ -7,7 +7,7 @@ struct node {
 void printSingleLinkedList(node* list){
     node* p = list;
     if(p!=NULL){
-        for (int i = 0; i < list->value; i++) {
+        while(p->next != NULL) {
             p=p->next;
             cout << p->value << "\t";
         }
