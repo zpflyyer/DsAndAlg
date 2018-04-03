@@ -30,6 +30,27 @@ void reverseList(node** singleLinkedList){
     }
     (*singleLinkedList)-> next = q;
 }
+void reverseFirstK(node** listHeadRef, int k){
+    if((*listHeadRef)->value <= 1){
+        return;
+    }
+    if(k > (*listHeadRef)->value){
+        reverseFirstK(listHeadRef, (*listHeadRef)->value);
+    }
+    node* q = (*listHeadRef)->next;//first element
+    node* p = q->next;//second selement
+    
+    node* t = NULL;
+    for (int i = 2; i <= k; i++) {
+        t = p->next;
+        p->next = q;
+        q = p;
+        p = t;
+    }
+    (*listHeadRef)->next->next = p;
+    (*listHeadRef)->next = q;
+    
+}
 void insertHead(node** listHeadRef, int new_data)
 {
 	if((*listHeadRef) != NULL || (*listHeadRef)->value >= 0){
@@ -235,24 +256,5 @@ int main() {
 	
 	mergeSort(&singleLinkedList1);
 	printSingleLinkedList(singleLinkedList1);
-	return 0;
-}
-
-int main() {
-	node *singleLinkedList1 = new node, *singleLinkedList2 = new node;
-	node* p = singleLinkedList1, *q=singleLinkedList2;
-	cin >> singleLinkedList1->value;
-	for (int i = 0; i < singleLinkedList1->value; i++) {
-	    p->next = new node;
-	    p = p->next;
-	    cin >> p->value;
-	}
-	cin >> singleLinkedList2->value;
-	for (int i = 0; i < singleLinkedList2->value; i++) {
-	    q->next = new node;
-	    q = q->next;
-	    cin >> q->value;
-	}
-	printSingleLinkedList(sortedMerge(singleLinkedList1, singleLinkedList2));
 	return 0;
 }
