@@ -231,30 +231,58 @@ void mergeSort(node** list){
     printSingleLinkedList(*list);
 }
 
-int main() {
-	node *singleLinkedList1 = new node, *singleLinkedList2 = new node;
-	node* p = singleLinkedList1, *q=singleLinkedList2;
+void removeLoop(node* loopNode, node* head){
+    cout << "loopNode: " << loopNode->value << ", \theadNode: " << head->value << endl;
+    node* ptr1, *ptr2;
+    ptr1 = head;
+    while(true){
+        ptr2 = loopNode;
+        while(ptr2->next != loopNode && ptr2->next != ptr1){
+            ptr2 = ptr2->next;
+        }
+        if(ptr2->next == ptr1){
+            cout << "cycle node: " << ptr1->value << endl;
+            break;
+        }
+        ptr1 = ptr1->next;
+    }
+    ptr2->next = NULL;
+}
+bool detectAndRemoveLoop(node** headRef){
+    if((*headRef)->value < 1){
+        return false;
+    }
+    node* slow = *headRef, *fast = *headRef;
+    while(fast!=NULL){
+        slow = slow->next;
+        fast = fast->next;
+         if(fast!=NULL){
+             fast = fast->next;
+             if(fast == slow){
+                 cout << "loop node: " << slow->value << endl;
+                 removeLoop(slow, *headRef);
+                 return true;
+             }
+             cout << "slow: " << slow->value << ",\t" << "fast: " << fast->value << endl;
+         } else {
+             return false;
+         }
+    }
+}
+int main(){
+    node *singleLinkedList1 = new node;
+	node* p = singleLinkedList1;
 	cin >> singleLinkedList1->value;
 	for (int i = 0; i < singleLinkedList1->value; i++) {
 	    p->next = new node;
 	    p = p->next;
 	    cin >> p->value;
 	}
-	cin >> singleLinkedList2->value;
-	for (int i = 0; i < singleLinkedList2->value; i++) {
-	    q->next = new node;
-	    q = q->next;
-	    cin >> q->value;
-	}
-// 	node* mergedList = sortedMerge(singleLinkedList1, singleLinkedList2);
-// 	printSingleLinkedList(mergedList);
-	
-// 	node* a, *b;
-// 	halve(mergedList, &a, &b);
-// 	printSingleLinkedList(a);
-// 	printSingleLinkedList(b);
-	
-	mergeSort(&singleLinkedList1);
 	printSingleLinkedList(singleLinkedList1);
-	return 0;
+	
+	p->next = singleLinkedList1->next->next->next;
+	
+	detectAndRemoveLoop(&singleLinkedList1);
+	printSingleLinkedList(singleLinkedList1);
+    return 0;
 }
